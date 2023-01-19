@@ -25,10 +25,25 @@
         <p>土淵町の常堅寺裏を流れる小川の淵にはカッパが多く住んでいて、人々を驚かし、いたずらをしたといわれています。
             澄んだ水がさらさらと流れるカッパ淵は、うっそうとした茂みに覆われ、今にもカッパが現れそうです。淵の岸辺には、カッパ神を祀った小さな祠があり、子持ちの女性がお乳が出るようにと願ををかけるとかなうといわれています、願かけには、赤い布で乳の形を作り、この祠に納めるのが習いとされています。</p>
     </section>
+    <section id="intro2">
+        <h2>かっぱ花子</h2>
+        <div id="chara2">
+        <img src="images/chara02.jpeg" alt="kappa" width="100" height="100">
+        </div>
+        <p>遠野市公式キャラクターである「カリンちゃん」のお友達の「コリンちゃん」です。</p>
+        <h2>自己紹介</h2>
+        <p>カッパアイドルかっぱ花子ちゃんはその昔、「カリンちゃん」とは一緒の小学校に通うお友達でした。しかし「カリンちゃん」がゆるキャラとして有名になるにつれ、目に見えない亀裂が二人の間に入り始めました。以降、疎遠になった二人ですが、80年たち、思わぬ形で再開を果たすのでした！</p>
+    </section>
 
     <section id="toukou">
         <h2>＜お手紙フォーム＞</h2>
         <form action="regist.php" method="post" require>
+        <h3>宛先</h3>
+        <select name="subject" id="subject" >
+          <option value="">--選んでください--</option>
+          <option value="かっぱ太郎">かっぱ太郎</option>
+          <option value="かっぱ花子">かっぱ花子</option>
+        </select>
             <h3>氏名</h3>
             <input type="text" name="name" placeholder="お名前をどうぞ～" size="20" value="" requir><br>
             <h3>連絡先</h3>
@@ -65,6 +80,8 @@ if (!$stmt) {
 while ($data = $stmt->fetch(PDO::FETCH_ASSOC)){
   echo "<form action='delete.php' method='post'>\n";
   echo '<strong>[No.' . $data['no'] . '] ' . $data['created'] . "</strong><br />\n";
+  echo "<p>\n";
+  echo nl2br(htmlspecialchars($data['db_subject'], ENT_QUOTES));
   echo "<p>\n";
   echo nl2br(htmlspecialchars($data['message'], ENT_QUOTES));
   echo "</p><input type='submit' name='reset' value='削除'>↑該当記事の削除↑</input>\n";

@@ -1,5 +1,5 @@
-CREATE DATABASE Git-test;
-USE Git-test;
+CREATE DATABASE `git-test`;
+USE `git-test`;
 
 CREATE TABLE `comments` (
   `no` int(11) NOT NULL,
@@ -9,4 +9,6 @@ CREATE TABLE `comments` (
   `created` datetime NOT NULL
 );
 
-INSERT INTO `comments` (`no`, `name`, `address`, `message`, `created`) VALUES
+-- INSERT INTO `comments` (`no`, `name`, `address`, `message`, `created`) VALUES
+
+ALTER TABLE `comments` ADD db_subject varchar(255);
