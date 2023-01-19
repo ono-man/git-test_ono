@@ -9,38 +9,24 @@
 <div id="sousin">
 <?php
 
-if ($_REQUEST['name'] == '' or $_POST['message'] == '') {
-  exit('error');
-}
+try {
+$pdo = new PDO('mysql:dbname=git-test;host=127.0.0.1', 'root', 'aoikokoro');
 
-$con = mysqli_connect('127.0.0.1', 'root', 'aoikokoro');
-if (!$con) {
-  exit('データベースに接続できませんでした。');
-}
-
-$result = mysqli_select_db($con,'git-test');
-if (!$result) {
-  exit('データベースを選択できませんでした。');
-}
-
-$result = mysqli_query($con,'SET NAMES utf8');
-if (!$result) {
-  exit('文字コードを指定できませんでした。');
-}
+$stmt = $pdo->query('SET NAMES utf8');
 
 $name    = $_REQUEST['name'];
 $address = $_REQUEST['address'];
 $message = $_REQUEST['message'];
 $created = date('Y-m-d H:i:s');
+$subject = $_REQUEST['subject'];
 
-$result = mysqli_query($con,"INSERT INTO comments(name, address, message, created) VALUES('$name', '$address', '$message', '$created')");
-if (!$result) {
-  exit('データを登録できませんでした。');
-}
+$stmt = $pdo->query("INSERT INTO comments(name, address, message, created,db_subject) VALUES('$name', '$address', '$message', '$created','$subject')");
 
-$con = mysqli_close($con);
-if (!$con) {
-  exit('データベースとの接続を閉じられませんでした。');
+
+$pdo = null;
+
+} catch (PDOException $e) {
+  exit('データベースに接続できませんでした。'.$e->getMessage());
 }
 
 ?>
